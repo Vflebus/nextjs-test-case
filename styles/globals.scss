@@ -1,0 +1,95 @@
+a {
+  color: inherit;
+  text-decoration: none;
+}
+.column_center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#notifications {
+  position: absolute;
+  top: 1vh;
+  right: 1vw;
+  display: flex;
+  flex-direction: column;
+  row-gap: 1vh;
+}
+
+
+.tablePage {
+  width: 100%;
+  h1 {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 10vh;
+  }
+  table {
+    width: 60%;
+    margin-bottom: 2vh;
+    tr {
+      border: 0.5px solid black;
+      position: relative;
+      .noButtonStyling {
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+      }
+      th,
+      td {
+        border: 0.5px solid black;
+        width: 33.33%; /* Older browsers fallback */
+        width: calc(100% / 3);
+        height: 3vh;
+        vertical-align: middle;
+        text-align: center;
+      }
+      th {
+        background-color: lightblue;
+        position: relative;
+      }
+      .filtering::after {
+        content: '^';
+        font-size: 2rem;
+        position: absolute;
+        right: 10%;
+      }
+      .desc::after {
+        transform: rotate(180deg) translate(0, 50%);
+      }
+    }
+    tbody > tr:hover,
+    .selected {
+      background-color: lightyellow;
+    }
+    .selected {
+      background-color: lightyellow;
+    }
+  }
+  .changeButtonsDiv {
+    display: flex;
+    column-gap: 5px;
+    .changesButton {
+      background-color: green;
+      color: white;
+      height: 4vh;
+      width: 20vw;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+    }
+    .revertChanges {
+      background-color: red;
+    }
+  }
+  .deleteButton {
+    background-color: red;
+    color: white;
+    height: 4vh;
+    width: 20vw;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    margin-bottom: 5px;
+  }
+}
