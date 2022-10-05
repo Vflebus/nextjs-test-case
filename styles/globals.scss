@@ -2,11 +2,13 @@ a {
   color: inherit;
   text-decoration: none;
 }
-.column_center {
+
+.column-center {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
+
 #notifications {
   position: absolute;
   top: 1vh;
@@ -19,56 +21,70 @@ a {
 
 .tablePage {
   width: 100%;
+
   h1 {
     font-size: 3rem;
     font-weight: bold;
     margin-bottom: 10vh;
   }
+
   table {
     width: 60%;
     margin-bottom: 2vh;
+
     tr {
       border: 0.5px solid black;
       position: relative;
+
       .noButtonStyling {
         background-color: transparent;
         border: none;
         cursor: pointer;
       }
+
       th,
       td {
         border: 0.5px solid black;
-        width: 33.33%; /* Older browsers fallback */
+        width: 33.33%;
+        /* Older browsers fallback */
         width: calc(100% / 3);
         height: 3vh;
         vertical-align: middle;
         text-align: center;
       }
+
       th {
         background-color: lightblue;
         position: relative;
+        cursor: pointer;
       }
+
       .filtering::after {
         content: '^';
         font-size: 2rem;
         position: absolute;
         right: 10%;
       }
+
       .desc::after {
         transform: rotate(180deg) translate(0, 50%);
       }
     }
-    tbody > tr:hover,
+
+    tbody>tr:hover,
     .selected {
       background-color: lightyellow;
     }
+
     .selected {
       background-color: lightyellow;
     }
   }
+
   .changeButtonsDiv {
     display: flex;
     column-gap: 5px;
+
     .changesButton {
       background-color: green;
       color: white;
@@ -78,10 +94,12 @@ a {
       border: none;
       cursor: pointer;
     }
+
     .revertChanges {
       background-color: red;
     }
   }
+
   .deleteButton {
     background-color: red;
     color: white;
@@ -91,5 +109,108 @@ a {
     border: none;
     cursor: pointer;
     margin-bottom: 5px;
+  }
+}
+
+.modal {
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: hsla(0, 0%, 0%, 0.7);
+    transition: all .5s;
+  }
+
+  .modalBody {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60vw;
+    min-height: 40vh;
+    background-color: lightgrey;
+    border: 2px solid red;
+
+    .modalForm {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100%;
+      row-gap: 2vh;
+
+      h3 {
+        text-align: center;
+        font-size: 2rem;
+      }
+
+      .inputField {
+        display: flex;
+        justify-content: center;
+        column-gap: 1vw;
+      }
+    }
+  }
+}
+
+#notifications {
+  position: absolute;
+  top: 1vh;
+  right: 1vw;
+  display: flex;
+  flex-direction: column;
+  row-gap: 1vh;
+}
+.notificationsModal {
+  .caption {
+    position: relative;
+    min-height: 5vh;
+    min-width: 8vw;
+    background-color: grey;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    padding: 5%;
+    text-align: center;
+    cursor: pointer;
+
+    .numberOfNotifications {
+      width: 20px;
+      height: 20px;
+      background-color: #fff;
+      border-radius: 10px;
+      position: absolute;
+      bottom: 5px;
+      left: 5px;
+      color: black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  .error {
+    background-color: red;
+  }
+
+  .success {
+    background-color: rgb(0, 255, 0);
+  }
+}
+
+.getter {
+  padding: 2%;
+  width: 40vw;
+  max-height: 80vh;
+  .getterInfos {
+    width: 100%;
+    img {
+      max-width: 100%;
+      max-height: 80%;
+    }
   }
 }

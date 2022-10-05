@@ -1,7 +1,7 @@
-import Footer from '../components/Footer'
 import { useEffect, useState } from 'react'
+import Modal from '../components/Modal';
 
-export default function Test() {
+export default function Array() {
 
   const initialTableData = [
     {
@@ -84,7 +84,6 @@ export default function Test() {
   const [tableHasBeenModified, setTableHasBeenModified] = useState(false);
   const [sortedTableData, setSortedTableData] = useState([]);
   useEffect(() => {
-    console.log('Sorting new...');
     setSortedTableData(tableData.sort((a, b) => {
       let modifier = 1;
       if (currentSortDir === "asc") modifier = -1;
@@ -92,16 +91,16 @@ export default function Test() {
       if (a[currentSort] > b[currentSort]) return 1 * modifier;
       return 0;
     }));
-    console.log('sorted');
   }, [tableData, currentSort, currentSortDir]);
 
   let selectedLines = tableData.filter((row) => {
     return row.selected == true;
   }).length;
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   //Functions
   const sortBy = (category) => {
-    console.log('Changing sort options...')
     //if categrory == current sort, reverse
     if (category === currentSort) {
       setCurrentSortDir(currentSortDir === "asc" ? "desc" : "asc");
@@ -109,34 +108,63 @@ export default function Test() {
       setCurrentSort(category);
       setCurrentSortDir("asc");
     }
-    console.log('Sorting options changed !')
   };
 
   const selectRow = (row) => {
-    console.log('Selecting row...')
     setTableData(tableData.map((data) => {
       if (data.id == row.id) {
         return { ...data, selected: !data.selected }
       } else {
-        return {...data}
+        return { ...data }
       }
     }))
-    console.log('Selected !');
+  }
+
+  const deleteRow = () => {
+    setTableData(tableData.filter(row => !row.selected));
+    setTableHasBeenModified(true);
+  }
+
+  const [currentId, setCurrentId] = useState(7)
+  const addRow = () => {
+    const newTableData = [...tableData]
+    newTableData.push({
+      id: currentId,
+      name: "---",
+      rank: "---",
+      selected: false,
+    });
+    setTableData(newTableData);
+    setCurrentId(currentId + 1);
+    setTableHasBeenModified(true);
+  }
+
+  const updateRows = (array) => {
+    setTableData(() => {
+      return tableData.map(row => {
+        const newRow = array.find(x => x.id == row.id)
+        if(newRow){
+          return {...newRow, selected: false}
+        } else {
+          return row
+        }
+      })
+    })
   }
 
   return (
-    <div className='column_center tablePage'>
+    <div className='column-center tablePage'>
       <div id="notifications">
 
       </div>
       <h1>Table test case</h1>
-      <button className="addRow">Ajouter une ligne à la table</button>
+      <button className="addRow" onClick={addRow}>Ajouter une ligne à la table</button>
       <table>
         <thead>
           <tr>
-            <th><button className={`noButtonStyling ${currentSort == "id" ? `filtering ${currentSortDir}` : ""}`} onClick={() => sortBy("id")}>ID</button></th>
-            <th><button className={`noButtonStyling ${currentSort == "name" ? `filtering ${currentSortDir}` : ""}`} onClick={() => sortBy("name")}>name</button></th>
-            <th><button className={`noButtonStyling ${currentSort == "rank" ? `filtering ${currentSortDir}` : ""}`} onClick={() => sortBy("rank")}>Rank</button></th>
+            <th onClick={() => sortBy("id")}><button className={`noButtonStyling ${currentSort == "id" ? `filtering ${currentSortDir}` : ""}`} >ID</button></th>
+            <th onClick={() => sortBy("name")}><button className={`noButtonStyling ${currentSort == "name" ? `filtering ${currentSortDir}` : ""}`} >name</button></th>
+            <th onClick={() => sortBy("rank")}><button className={`noButtonStyling ${currentSort == "rank" ? `filtering ${currentSortDir}` : ""}`} >Rank</button></th>
           </tr>
         </thead>
         <tbody>
@@ -152,9 +180,14 @@ export default function Test() {
         </tbody>
       </table>
       {selectedLines > 0 && (
-        <button className="deleteButton">
-          Supprimer {selectedLines > 1 ? "les " : "la"} ligne séléctionnée{selectedLines > 1 ? "s " : ""}
-        </button>
+        <div className="changeButtonsDiv">
+          <button className="changesButton" onClick={() => setIsModalOpen(true)} >
+            Modifier {selectedLines > 1 ? "les lignes" : "la ligne"} séléctionnée{selectedLines > 1 ? "s " : ""}
+          </button>
+          <button className="deleteButton" onClick={deleteRow}>
+            Supprimer {selectedLines > 1 ? "les lignes" : "la ligne"} ligne séléctionnée{selectedLines > 1 ? "s " : ""}
+          </button>
+        </div>
       )}
       {tableHasBeenModified && (
         <div className="changeButtonsDiv">
@@ -162,7 +195,7 @@ export default function Test() {
           <button className="revertChanges changesButton">Annuler les changements</button>
         </div>
       )}
-      <Footer />
+      <Modal open={isModalOpen} onClose={() => setIsModalOpen(false)} rowList={tableData.filter((row) => {return row.selected == true;})} updateRows={updateRows}/>
     </div >
   )
 }
