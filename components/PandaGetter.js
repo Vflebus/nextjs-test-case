@@ -1,7 +1,6 @@
-import Image from "next/image"
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux"
-import { fetchPanda, getPandaAction } from "../store/reducers/pandaReducer";
+import { fetchPanda } from "../store/reducers/pandaReducer";
 
 const PandaGetter = () => {
 

@@ -1,4 +1,5 @@
 import PandaGetter from "../components/PandaGetter"
+import RaccoonGetter from "../components/RaccoonGetter"
 
 const Animals = () => {
 
@@ -7,8 +8,7 @@ const Animals = () => {
             <h1>Http requests test</h1>
             <div className="apiGetters">
                 <PandaGetter />
-                <PandaGetter />
-                {/* <RaccoonGetter /> */}
+                <RaccoonGetter />
             </div>
         </main>
     )

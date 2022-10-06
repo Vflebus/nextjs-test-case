@@ -23,14 +23,6 @@ const pandaSlice = createSlice({
   initialState,
 
   reducers: {
-    getPandaAction: (state) => {
-        // let response = await axios.get("https://some-random-api.ml/animal/red_panda");
-        // const newPanda = response.data;
-        // state.panda.image = newPanda.image;
-        // state.panda.fact = newPanda.fact;
-        // console.log(newPanda);
-        // state.loadingPanda = false;
-    }
   },
   extraReducers: (builder) => {
     builder.addCase(fetchPanda.fulfilled, (state, action) => {

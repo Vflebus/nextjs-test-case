@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 import { addNotificationAction } from '../store/reducers/notificationsReducer'
 import styles from '../styles/Footer.module.scss'
 
-export default function footer() {
+export default function Footer() {
     const dispatch = useDispatch();
 
     const sendNotif = () => {
