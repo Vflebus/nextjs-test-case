@@ -11,17 +11,19 @@ const PandaGetter = () => {
     }, [dispatch])
 
     const { loadingPanda, panda } = useSelector(({ panda }) => panda);
-    console.log(loadingPanda);
+    console.log('loading panda ? ' + loadingPanda);
+    console.log(panda);
 
     return (
         <div className="getter column-center">
             <h2>PANDA</h2>
-            {/* {!loadingPanda && (
+            {!loadingPanda && (
                 <div className="getterInfos column-center" >
-                    <Image src={panda.image} alt="Panda"/>
+                    {/*eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={panda.image} alt="Panda" layout="fill"/>
                     <p>{panda.fact}</p>
                 </div>
-            )} */}
+            )}
         </div>
     )
 }

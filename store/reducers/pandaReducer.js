@@ -38,6 +38,7 @@ const pandaSlice = createSlice({
       console.log(action.payload);
       state.panda.image = action.payload.image;
       state.panda.fact = action.payload.fact;
+      state.loadingPanda = false;
     })
   }
 
